@@ -1,3 +1,4 @@
+/* General Styles */
 .card-customizer-container {
   display: flex;
   flex-direction: column;
@@ -20,6 +21,7 @@
 .card-customizer-content {
   display: flex;
   flex: 1;
+  flex-wrap: wrap; /* Allow wrapping for small screens */
 }
 
 .sidebar {
@@ -28,6 +30,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
 }
 
 .templates {
@@ -188,4 +191,80 @@
 
 .upload-button:hover {
   background-color: #218838;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .card-customizer-container {
+    flex-direction: column;
+  }
+
+  .card-customizer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 10px;
+    order: 2; /* Move sidebar to the bottom on small screens */
+  }
+
+  .output {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .template-preview {
+    width: 80%;
+    max-width: 350px;
+    margin-bottom: 20px;
+  }
+
+  .cropper-container {
+    max-width: 90%;
+  }
+
+  .download-button, .submit-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 30%;
+  }
+
+  .sidebar {
+    width: 100%;
+    order: 2;
+    padding: 10px;
+  }
+
+  .template-button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .output {
+    padding: 15px;
+  }
+
+  .cropper-container {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .customized-card-canvas {
+    width: 100%;
+    max-width: 90%;
+    height: auto;
+  }
+
+  .download-button, .submit-button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
 }
