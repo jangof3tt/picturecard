@@ -80,7 +80,7 @@
   display: none;
 }
 
-.crop-button {
+.save-crop-button {
   padding: 10px 15px;
   color: #fff;
   background-color: #007bff;
@@ -92,7 +92,7 @@
   border: none;
 }
 
-.crop-button:hover {
+.save-crop-button:hover {
   background-color: #0069d9;
 }
 
@@ -105,25 +105,40 @@
   background-color: #f0f0f0;
 }
 
-.crop-container {
-  width: 300px;
-  height: 200px;
+.cropper-container {
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
   position: relative;
   margin-bottom: 20px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .card-preview {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(69, 254, 0, 1); /* Base RGBA background */
+  border-radius: 8px;
 }
 
 .cropped-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.customized-card-canvas {
+  border: 1px solid #ddd;
+  margin-top: 20px;
+  width: 100%;
+  height: auto;
+  max-width: 800px;
 }
