@@ -11,49 +11,50 @@ import template2PNG from '../assets/template2.png';
 import template3PNG from '../assets/template3.png';
 
 function CardCustomizer() {
-  const [selectedTemplateJPEG, setSelectedTemplateJPEG] = useState(template1JPEG);
-  const [selectedTemplatePNG, setSelectedTemplatePNG] = useState(template1PNG);
+  const [selectedTemplateJPEG, setSelectedTemplateJPEG] = useState(null);
+  const [selectedTemplatePNG, setSelectedTemplatePNG] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [countdown, setCountdown] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const canvasRef = useRef(null);
 
-  // UseEffect to draw the template on canvas
   useEffect(() => {
-    if (selectedTemplatePNG) {
+    if (countdown === 0 && selectedTemplatePNG && croppedImage) {
       drawTemplate();
     }
-  }, [selectedTemplatePNG, croppedImage]);
+  }, [countdown, selectedTemplatePNG, croppedImage]);
 
-  // Draw template function to draw the PNG template and inlay cropped image
   const drawTemplate = () => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
+
     const ctx = canvas.getContext('2d');
     const cardImage = new Image();
     cardImage.src = selectedTemplatePNG;
 
-    // Load PNG template and draw on canvas
     cardImage.onload = () => {
-      const cardWidth = 300;  // Set small width
-      const cardHeight = 180; // Set small height
+      const cardWidth = 400;
+      const cardHeight = 250;
       canvas.width = cardWidth;
       canvas.height = cardHeight;
 
       ctx.clearRect(0, 0, cardWidth, cardHeight);
       ctx.drawImage(cardImage, 0, 0, cardWidth, cardHeight);
 
-      // Inlay cropped image if available
       if (croppedImage) {
         drawInlay(cardWidth, cardHeight);
       }
     };
   };
 
-  // Function to draw cropped image inlay
   const drawInlay = (width, height) => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
+
     const ctx = canvas.getContext('2d');
     const overlayImage = new Image();
     overlayImage.src = croppedImage;
@@ -64,7 +65,6 @@ function CardCustomizer() {
     };
   };
 
-  // Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -73,28 +73,51 @@ function CardCustomizer() {
     }
   };
 
-  // Handle crop complete action
   const handleCropComplete = useCallback(async () => {
+    setLoading(true);
+    setCountdown(3);
+
     try {
       const croppedImg = await getCroppedImg(uploadedImage, croppedAreaPixels);
       setCroppedImage(croppedImg);
+
+      let countdownInterval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(countdownInterval);
+            setLoading(false);
+            setCountdown(0);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     } catch (error) {
       console.error('Failed to crop the image:', error);
+      setLoading(false);
     }
   }, [uploadedImage, croppedAreaPixels]);
 
-  // Handle template selection
   const handleTemplateSelect = (templateJPEG, templatePNG) => {
     setSelectedTemplateJPEG(templateJPEG);
     setSelectedTemplatePNG(templatePNG);
     setCroppedImage(null);
   };
 
+  const downloadImage = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'customized_card.png';
+    link.click();
+  };
+
   return (
     <div className="card-customizer-container">
       <header className="header">
         <img src={logo} alt="Logo" className="logo" />
-        <h1>Customize Your Card</h1>
       </header>
       <div className="card-customizer-content">
         <aside className="sidebar">
@@ -125,27 +148,52 @@ function CardCustomizer() {
             Choose Image
           </label>
           {uploadedImage && (
-            <button className="save-crop-button" onClick={handleCropComplete} style={{ marginTop: '10px' }}>
-              Save Crop
+            <button className="save-crop-button" onClick={handleCropComplete}>
+              Crop and Save
             </button>
           )}
         </aside>
         <main className="output">
-          <img src={selectedTemplateJPEG} alt="Card Template Preview" className="template-preview" style={{ width: '300px', height: '180px' }} />
-          {uploadedImage && (
-            <div className="cropper-container">
+          {!loading && !croppedImage && selectedTemplateJPEG && (
+            <img
+              src={selectedTemplateJPEG}
+              alt="Card Template Preview"
+              className="template-preview"
+              style={{ width: '350px', height: '210px', marginBottom: '20px' }}
+            />
+          )}
+          {uploadedImage && !loading && !croppedImage && (
+            <div className="cropper-container" style={{ marginBottom: '20px' }}>
               <Cropper
                 image={uploadedImage}
                 crop={crop}
                 zoom={zoom}
-                aspect={300 / 180}  // Smaller card aspect ratio
+                aspect={300 / 180}
                 onCropChange={setCrop}
                 onZoomChange={setZoom}
                 onCropComplete={(croppedArea, pixels) => setCroppedAreaPixels(pixels)}
               />
             </div>
           )}
-          <canvas ref={canvasRef} className="customized-card-canvas" style={{ width: '300px', height: '180px' }}></canvas>
+          {loading && countdown != null ? (
+            <div className="countdown">
+              <h2>Visualizing your dream card in {countdown}...</h2>
+            </div>
+          ) : (
+            croppedImage && countdown === 0 && (
+              <div className="final-output">
+                <canvas
+                  ref={canvasRef}
+                  className="customized-card-canvas"
+                  style={{ width: '400px', height: '250px' }}
+                ></canvas>
+                <div className="action-buttons">
+                  <button onClick={downloadImage} className="download-button">Download</button>
+                  <button className="submit-button">Submit</button>
+                </div>
+              </div>
+            )
+          )}
         </main>
       </div>
     </div>
