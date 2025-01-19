@@ -1,0 +1,129 @@
+/* General styles for the submission page */
+.submission-container {
+  font-family: 'Inter', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh; /* Ensure the page takes full height */
+  padding: 0;
+  background-color: #f4f7fc;
+  overflow: hidden; /* Prevent the container from overflowing */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #003366; /* Dark blue header */
+  padding: 15px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed; /* Fix the header to the top */
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.logo {
+  width: 20%;
+  height: auto;
+}
+
+/* Form container and form styling */
+.submission-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 800px;
+  width: 100%;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 120px; /* Add space for the fixed header */
+  z-index: 1;
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  max-height: 80vh; /* Limit the height so it becomes scrollable */
+}
+
+/* Styling for the form */
+.submission-heading {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 30px;
+}
+
+.submission-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.submission-form label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.submission-form input,
+.submission-form textarea {
+  padding: 14px 18px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submission-form input:focus,
+.submission-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.submission-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submit-form-button {
+  padding: 14px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submit-form-button:hover {
+  background-color: #0056b3;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 25px;
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* Ensure the form fits neatly within the viewport without scrolling */
+.submission-container {
+  overflow: hidden; /* Hide any overflow */
+}

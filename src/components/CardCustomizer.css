@@ -1,16 +1,25 @@
+/* Import Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 /* General Styles */
 .card-customizer-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif; /* Change to Inter font */
 }
 
 .header {
   display: flex;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: #003366; /* Dark blue header */
+  justify-content: center;
   padding: 10px 20px;
+  position: fixed; /* Fixed header to prevent overlap */
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999; /* Ensures it stays on top */
 }
 
 .logo {
@@ -22,6 +31,8 @@
   display: flex;
   flex: 1;
   flex-direction: row; /* Align sidebar and main content horizontally */
+  margin-top: 70px; /* Adjusted margin to avoid overlap with fixed header */
+  overflow-y: auto; /* Make the content scrollable */
 }
 
 .sidebar {
@@ -31,6 +42,7 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  position: relative;
 }
 
 .templates {
@@ -88,6 +100,7 @@
   align-items: center;
   padding: 20px;
   background-color: #f0f0f0;
+  overflow-y: auto; /* Allow scrolling within the output section */
 }
 
 .cropper-container {
