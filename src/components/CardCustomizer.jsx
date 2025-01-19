@@ -121,7 +121,8 @@ function CardCustomizer() {
       </header>
       <div className="card-customizer-content">
         <aside className="sidebar">
-          <h3>Choose Card Template</h3>
+          <h3>Section 1: Upload</h3>
+          <h4>Choose Card Template</h4>
           <div className="templates">
             <button
               className={`template-button ${selectedTemplateJPEG === template1JPEG ? 'selected' : ''}`}
@@ -142,7 +143,7 @@ function CardCustomizer() {
               Option 3
             </button>
           </div>
-          <h3>Upload Image</h3>
+          <h4>Upload Image</h4>
           <label className="upload-button">
             <input type="file" accept="image/*" onChange={handleImageUpload} />
             Choose Image
@@ -154,6 +155,7 @@ function CardCustomizer() {
           )}
         </aside>
         <main className="output">
+          <h3>Section 2: Adjust</h3>
           {!loading && !croppedImage && selectedTemplateJPEG && (
             <img
               src={selectedTemplateJPEG}
