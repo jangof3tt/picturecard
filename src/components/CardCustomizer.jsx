@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
 import { getCroppedImg } from '../utils/cropImage';
+import { useNavigate } from 'react-router-dom';
 import './CardCustomizer.css';
 import logo from '../assets/logo.png';
 import template1JPEG from '../assets/template1.jpeg';
@@ -27,6 +28,11 @@ function CardCustomizer() {
       drawTemplate();
     }
   }, [countdown, selectedTemplatePNG, croppedImage]);
+
+  const navigate = useNavigate(); 
+  const handleClick = () => {
+    navigate('/submission'); // Navigate to the /submission route when clicked
+  };
 
   const drawTemplate = () => {
     const canvas = canvasRef.current;
@@ -191,7 +197,7 @@ function CardCustomizer() {
                 ></canvas>
                 <div className="action-buttons">
                   <button onClick={downloadImage} className="download-button">Download</button>
-                  <button className="submit-button">Submit</button>
+                  <button onClick={handleClick} className="submit-button">Submit</button>
                 </div>
               </div>
             )
