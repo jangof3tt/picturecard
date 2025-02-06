@@ -84,13 +84,23 @@
   display: none;
 }
 
+.upload-button:hover {
+  background-color: #218838;
+}
+
 .save-crop-button {
   padding: 10px 15px;
   color: #fff;
-  background-color: #007bff;
+  background-color: #007bff;  /* Keep the color as it is */
   border-radius: 8px;
   cursor: pointer;
   margin-top: 15px;
+  font-size: 16px;  /* Adjust the font size to match the 'Choose Image' button */
+  font-weight: 500;  /* Adjust weight to match the 'Choose Image' button */
+}
+
+.save-crop-button:hover {
+  background-color: #0069d9;  /* Adjust hover effect if needed */
 }
 
 .output {

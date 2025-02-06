@@ -6,28 +6,9 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh; /* Ensure the page takes full height */
-  padding: 0;
+  padding: 0 20px 30px; /* Add padding at the bottom */
   background-color: #f4f7fc;
   overflow: hidden; /* Prevent the container from overflowing */
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #003366; /* Dark blue header */
-  padding: 15px 20px;
-  width: 100%;
-  box-sizing: border-box;
-  position: fixed; /* Fix the header to the top */
-  top: 0;
-  left: 0;
-  z-index: 10;
-}
-
-.logo {
-  width: 20%;
-  height: auto;
 }
 
 /* Form container and form styling */
@@ -43,6 +24,8 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   margin-top: 120px; /* Add space for the fixed header */
   z-index: 1;
+  
+  /* Make only the form content scrollable */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   max-height: 80vh; /* Limit the height so it becomes scrollable */
 }
@@ -121,9 +104,4 @@
 
 .back-link:hover {
   text-decoration: underline;
-}
-
-/* Ensure the form fits neatly within the viewport without scrolling */
-.submission-container {
-  overflow: hidden; /* Hide any overflow */
 }

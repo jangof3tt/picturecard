@@ -134,19 +134,19 @@ function CardCustomizer() {
               className={`template-button ${selectedTemplateJPEG === template1JPEG ? 'selected' : ''}`}
               onClick={() => handleTemplateSelect(template1JPEG, template1PNG)}
             >
-              Option 1
+              VISA
             </button>
             <button
               className={`template-button ${selectedTemplateJPEG === template2JPEG ? 'selected' : ''}`}
               onClick={() => handleTemplateSelect(template2JPEG, template2PNG)}
             >
-              Option 2
+              MASTERCARD
             </button>
             <button
               className={`template-button ${selectedTemplateJPEG === template3JPEG ? 'selected' : ''}`}
               onClick={() => handleTemplateSelect(template3JPEG, template3PNG)}
             >
-              Option 3
+              PLATINUM VISA
             </button>
           </div>
           <h4>Upload Image</h4>
